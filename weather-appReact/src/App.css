@@ -1,10 +1,33 @@
 .App {
   text-align: center;
-}
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
 
+  height: 100vh; 
+  width: 100%;
+  background-image: url('https://imgs.search.brave.com/KG7_40StfM_8BJW-UDzI4v7rRHCQ7NWT0aVzVN8U4XU/rs:fit:1200:1200:1/g:ce/aHR0cHM6Ly9vcmln/MDAuZGV2aWFudGFy/dC5uZXQvM2Q4ZC9m/LzIwMTUvMjI2L2Mv/NC9jNGFhM2RlMzdh/MWM3ZTlmY2E0OTNj/YjE5YTQxY2Y0Yi1k/OTVtYzZ0LnBuZw');
+  background-position: top; /* Center the image */
+  background-repeat: no-repeat; 
+  background-size: cover;
+}
+.temp{
+  display: flex;
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+}
+nav{
+  position: sticky;
+  position: top;
+}
+.main,.container{
+  background:#bbbaba;
+  opacity: 0.7;
+  margin-top: 5%;
+  border-radius: 5px;
+  padding: 2rem;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -12,7 +35,12 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
-
+input{
+  background: none !important;
+  border: none !important;
+  outline: none !important;
+  color: white !important;
+}
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -26,6 +54,18 @@
 
 .App-link {
   color: #61dafb;
+}
+
+@media (max-width: 1250px) { 
+
+ }
+
+ @media (max-width: 750px) { 
+  .App{
+    background: url('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwallpaperaccess.com%2Ffull%2F151676.jpg&f=1&nofb=1');
+    background-position: top;
+    background-size: cover;
+  }
 }
 
 @keyframes App-logo-spin {
