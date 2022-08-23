@@ -1,6 +1,5 @@
 import React from "react";
 import Bottom from "./Bottom";
-import Weather from "./Weather";
 
 function Temperature(props) {
   console.log(props.api);
@@ -22,7 +21,7 @@ function Temperature(props) {
         <span> &#8451; </span>
       </h4>
       <button className="btn-bucket">
-        <img src="https://img.icons8.com/material-two-tone/96/000000/waterbucket.png" />
+        <img src="https://img.icons8.com/material-two-tone/96/000000/waterbucket.png" alt="Bit-bucket" />
       </button>
       <Bottom api={props.api} />
     </div>
