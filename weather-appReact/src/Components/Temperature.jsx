@@ -1,26 +1,32 @@
-import React from 'react';
+import React from "react";
+import Bottom from "./Bottom";
+import Weather from "./Weather";
 
 function Temperature(props) {
-    console.log(props.api);
-    let celceus = Math.round( (props.api.main.temp) - 272.15 );
-    let maxTemp = Math.round( (props.api.main.temp_max) - 272.15 )
-    let minTemp = Math.round( (props.api.main.temp_min) - 272.15 )
+  console.log(props.api);
+  let celceus = Math.round(props.api.main.temp - 272.15);
+  let maxTemp = Math.round(props.api.main.temp_max - 272.15);
+  let minTemp = Math.round(props.api.main.temp_min - 272.15);
 
-    return (
-        <div className='tem'>
-            <h2>{celceus}<span> &#8451;</span></h2>
-   
-            <h2>Pressure : {props.api.main.pressure}<span> </span></h2>
-          
-            <h2>Humidity : {props.api.main.humidity}<span> </span></h2>
-           
-            <h2>Max : {maxTemp}<span> &#8451; </span></h2>
-            <h2>Min : {minTemp}<span> &#8451; </span></h2>
-            <h2>Wind Speed: {props.api.wind.speed}</h2>
-            <h2>Weather: {props.api.weather[0].description}</h2>
-        
-        </div>
-    );
+  return (
+    <div className="tem">
+      <h1 className="temperature">
+        {celceus}
+        <span> &#8451;</span>
+      </h1>
+      --------------------
+      <h3>{props.api.weather[0].description}</h3>
+      <h4>
+        {minTemp}
+        <span> &#8451; </span> / {maxTemp}
+        <span> &#8451; </span>
+      </h4>
+      <button className="btn-bucket">
+        <img src="https://img.icons8.com/material-two-tone/96/000000/waterbucket.png" />
+      </button>
+      <Bottom api={props.api} />
+    </div>
+  );
 }
 
 export default Temperature;

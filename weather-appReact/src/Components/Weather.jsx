@@ -1,29 +1,25 @@
 
-import React, { useRef } from "react";
-import bootstrap from 'bootstrap'
+import React, {  useState } from "react";
 
 function Weather(props) {
     
-    const searchData = useRef();
+    const [searchData,setData] = useState();
 
     function submit(e) {
         e.preventDefault();
         
-        searchData.current.value && props.cityFn(searchData.current.value);
+        searchData && props.cityFn(searchData);
+        setData('');
+
     }
 
     return (
         <div className='A'>
 
-<nav className="navbar bg-dark">
-  <div className="container-fluid">
-    <a className="navbar-brand">Navbar</a>
     <form className="d-flex" role="search" onSubmit={submit}>
-      <input className="form-control me-2" ref={searchData} type="search" placeholder="Search" aria-label="Search"/>
-      <button className="btn btn-outline-secondary" type="submit">Search</button>
+      <input className="form-control me-2" value={searchData} onChange={(e)=> setData(e.target.value)} type="search" placeholder="Search City" aria-label="Search"/>
     </form>
-  </div>
-</nav>
+  
          
         </div>
     );
