@@ -2,7 +2,7 @@ import React from "react";
 import Bottom from "./Bottom";
 
 function Temperature(props) {
-  console.log(props.api);
+  //console.log(props.api);
   let celceus = Math.round(props.api.main.temp - 272.15);
   let maxTemp = Math.round(props.api.main.temp_max - 272.15);
   let minTemp = Math.round(props.api.main.temp_min - 272.15);

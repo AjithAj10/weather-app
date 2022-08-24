@@ -31,12 +31,12 @@ function App() {
   }
 
   useEffect(() => {
-    if(!city){
-
+    if (!city) {
       getLocation();
+    } else {
+      setApi("");
+      getWeatherData();
     }
-
-    getWeatherData();
 
     switch (city?.toLowerCase()) {
       case "london":
@@ -61,20 +61,32 @@ function App() {
         setBg(images.rain);
         break;
     }
-    //console.log(city);
-    //console.log(bg);
+
   }, [city]);
 
   function getWeatherData() {
-    axios
-      .get(`https://geocoding-api.open-meteo.com/v1/search?name=${city}`)
-      .then((res) => {
-        //console.log(res.data);
-        latitude = res.data.results[0].latitude;
-        longitude = res.data.results[0].longitude;
+    try {
+      axios
+        .get(`https://geocoding-api.open-meteo.com/v1/search?name=${city}`)
+        .then((res) => {
+          console.log(res.data);
+          if (res.data.results) {
+            latitude = res.data.results[0].latitude;
+            longitude = res.data.results[0].longitude;
+          } else {
+            alert("City not found");
+            setCity("");
+            getLocation();
+            return;
+          }
 
-        wdata(latitude, longitude);
-      });
+          wdata(latitude, longitude);
+        });
+    } catch (error) {
+      console.log(error);
+      alert("City not found");
+      return;
+    }
   }
 
   const wdata = async (latitude, longitude) => {
@@ -83,9 +95,9 @@ function App() {
       `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=f0148d1cae9e62c70aef0ccd20c2e9bd`
     );
 
-    // if (!city) {
+    if (!city) {
       setCity(res.data.name);
-    
+    }
     setApi(res.data);
   };
 

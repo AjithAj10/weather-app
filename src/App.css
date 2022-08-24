@@ -152,7 +152,6 @@ input{
   }
 }
 
-
 body{
   padding:0;
   margin:0;
@@ -164,6 +163,7 @@ body{
   width:200px;
   height:60px;
   position: absolute;
+  margin-top: 3rem;
   left:50%;
   top:50%;
   transform: translate(-50%, -50%);
