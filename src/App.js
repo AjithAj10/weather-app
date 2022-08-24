@@ -12,25 +12,25 @@ function App() {
   const [bg, setBg] = useState(images.london);
 
   // const Api_Key = 'f0148d1cae9e62c70aef0ccd20c2e9bd';
-  let latitude;
-  let longitude;
-
-  function getLocation() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(showPosition);
-    } else {
-      alert("Geolocation is not supported by this browser.");
-      setCity("Mumbai");
-    }
-  }
-
-  function showPosition(position) {
-    latitude = position.coords.latitude;
-    longitude = position.coords.longitude;
-    wdata(latitude, longitude);
-  }
 
   useEffect(() => {
+    let latitude;
+    let longitude;
+    function getLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+      } else {
+        alert("Geolocation is not supported by this browser.");
+        setCity("Mumbai");
+      }
+    }
+
+    function showPosition(position) {
+      latitude = position.coords.latitude;
+      longitude = position.coords.longitude;
+      wdata(latitude, longitude);
+    }
+
     if (!city) {
       getLocation();
     } else {
@@ -61,45 +61,43 @@ function App() {
         setBg(images.rain);
         break;
     }
+    function getWeatherData() {
+      try {
+        axios
+          .get(`https://geocoding-api.open-meteo.com/v1/search?name=${city}`)
+          .then((res) => {
+            console.log(res.data);
+            if (res.data.results) {
+              latitude = res.data.results[0].latitude;
+              longitude = res.data.results[0].longitude;
+            } else {
+              alert("City not found");
+              setCity("");
+              getLocation();
+              return;
+            }
 
+            wdata(latitude, longitude);
+          });
+      } catch (error) {
+        console.log(error);
+        alert("City not found");
+        return;
+      }
+    }
+
+    const wdata = async (latitude, longitude) => {
+      // OpenWeather Api
+      let res = await axios.get(
+        `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=f0148d1cae9e62c70aef0ccd20c2e9bd`
+      );
+
+      if (!city) {
+        setCity(res.data.name);
+      }
+      setApi(res.data);
+    };
   }, [city]);
-
-  function getWeatherData() {
-    try {
-      axios
-        .get(`https://geocoding-api.open-meteo.com/v1/search?name=${city}`)
-        .then((res) => {
-          console.log(res.data);
-          if (res.data.results) {
-            latitude = res.data.results[0].latitude;
-            longitude = res.data.results[0].longitude;
-          } else {
-            alert("City not found");
-            setCity("");
-            getLocation();
-            return;
-          }
-
-          wdata(latitude, longitude);
-        });
-    } catch (error) {
-      console.log(error);
-      alert("City not found");
-      return;
-    }
-  }
-
-  const wdata = async (latitude, longitude) => {
-    // OpenWeather Api
-    let res = await axios.get(
-      `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=f0148d1cae9e62c70aef0ccd20c2e9bd`
-    );
-
-    if (!city) {
-      setCity(res.data.name);
-    }
-    setApi(res.data);
-  };
 
   return (
     <div className="App" style={{ backgroundImage: `url(${bg})` }}>
