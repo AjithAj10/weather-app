@@ -31,7 +31,10 @@ function App() {
   }
 
   useEffect(() => {
-    getLocation();
+    if(!city){
+
+      getLocation();
+    }
 
     getWeatherData();
 
@@ -80,9 +83,9 @@ function App() {
       `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=f0148d1cae9e62c70aef0ccd20c2e9bd`
     );
 
-    if (!city) {
+    // if (!city) {
       setCity(res.data.name);
-    }
+    
     setApi(res.data);
   };
 
